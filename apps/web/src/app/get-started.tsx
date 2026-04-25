@@ -1,10 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { EthereumProvider } from "../types/window";
 
 const ARC_TESTNET = 5042002;
 const ARC_TESTNET_HEX = `0x${ARC_TESTNET.toString(16)}`;
 const STORAGE_KEY = "map.openrouter-key";
+
+/**
+ * Pick the MetaMask provider when multiple wallet extensions are installed.
+ * Many users have MetaMask + Core (Avalanche evmAsk.js) + Coinbase Wallet +
+ * Rabby + Brave Wallet all fighting over `window.ethereum`. The first one
+ * that injects wins, but its multiplexer often hangs or errors. We walk
+ * `providers[]` (EIP-5749) and prefer MetaMask when present.
+ */
+function getProvider(): EthereumProvider | null {
+  if (typeof window === "undefined") return null;
+  const eth = window.ethereum;
+  if (!eth) return null;
+  if (Array.isArray(eth.providers) && eth.providers.length > 0) {
+    return eth.providers.find((p) => p.isMetaMask) ?? eth.providers[0];
+  }
+  return eth;
+}
 
 export default function GetStarted() {
   const [address, setAddress] = useState<`0x${string}` | null>(null);
@@ -29,7 +47,7 @@ export default function GetStarted() {
 
   // React to wallet account / chain changes
   useEffect(() => {
-    const eth = typeof window !== "undefined" ? window.ethereum : undefined;
+    const eth = getProvider();
     if (!eth?.on) return;
     const onAccounts = (...args: unknown[]) => {
       const accounts = args[0] as string[];
@@ -49,14 +67,24 @@ export default function GetStarted() {
 
   const connect = async () => {
     setErr(null);
-    const eth = window.ethereum;
+    const eth = getProvider();
     if (!eth) {
-      setErr("MetaMask not detected. Install at metamask.io and reload.");
+      setErr("No wallet detected. Install MetaMask at metamask.io and reload.");
+      return;
+    }
+    if (!eth.isMetaMask) {
+      setErr(
+        `Wallet detected (${eth.isCoinbaseWallet ? "Coinbase" : eth.isBraveWallet ? "Brave" : eth.isRabby ? "Rabby" : eth.isAvalanche ? "Core/Avalanche" : "unknown"}) but MetaMask wasn't found. Install MetaMask or disable other wallet extensions.`,
+      );
       return;
     }
     setBusy("connect");
     try {
       const accounts = (await eth.request({ method: "eth_requestAccounts" })) as string[];
+      if (!accounts || accounts.length === 0) {
+        setErr("Connection canceled in MetaMask.");
+        return;
+      }
       const addr = (accounts[0] as `0x${string}`).toLowerCase() as `0x${string}`;
       const cid = parseInt((await eth.request({ method: "eth_chainId" })) as string, 16);
       setAddress(addr);
@@ -70,7 +98,7 @@ export default function GetStarted() {
 
   const switchToArc = async () => {
     setErr(null);
-    const eth = window.ethereum;
+    const eth = getProvider();
     if (!eth) return;
     setBusy("switch");
     try {
