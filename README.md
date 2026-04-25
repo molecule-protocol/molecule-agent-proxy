@@ -80,8 +80,6 @@ Native gas is USDC. The ERC-20 interface uses 6 decimals; the native gas token u
 - **Charge**: MAP submits `MoleculeVault.chargeAndForward(nftId, requestNonce)` on Arc — emits a `Charged` event the dashboard streams via SSE.
 - **Forward**: MAP forwards the request to OpenRouter (or any upstream LLM) using the user's encrypted API key (KMS-wrapped in production; AES-256-GCM in this hackathon build).
 
-Security audit notes: see [AUDIT-SECURITY.md](https://github.com/molecule-protocol/molecule-agent-proxy) (kept with the project docs).
-
 ## License
 
 MIT.
