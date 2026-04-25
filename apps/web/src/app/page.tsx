@@ -37,9 +37,6 @@ export default function Home() {
       </nav>
 
       <header className="space-y-3">
-        <p className="text-sm uppercase tracking-widest text-[var(--color-usdc)]">
-          Molecule Agent Proxy
-        </p>
         <h1 className="text-5xl font-semibold leading-tight">
           Identity-gated, key-free API access for AI agents.
         </h1>
