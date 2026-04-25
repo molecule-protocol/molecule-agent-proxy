@@ -178,6 +178,31 @@ export default function AgentClient({
 
   return (
     <main className="mx-auto max-w-6xl space-y-6 p-6">
+      {/* Top nav — links to pitch + repo */}
+      <nav className="flex items-center justify-between border-b border-neutral-800 pb-3">
+        <a href="/" className="text-xs font-medium uppercase tracking-widest text-[var(--color-usdc)]">
+          Molecule Agent Proxy
+        </a>
+        <div className="flex gap-3 text-xs">
+          <a
+            href="/pitch"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-md border border-neutral-700 px-3 py-1.5 font-medium text-neutral-300 hover:bg-neutral-800"
+          >
+            Pitch ↗
+          </a>
+          <a
+            href="https://github.com/molecule-protocol/molecule-agent-proxy"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-md border border-neutral-700 px-3 py-1.5 font-medium text-neutral-300 hover:bg-neutral-800"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </nav>
+
       {/* DEMO MODE banner — honest disclosure that the OpenRouter key is shared in this build */}
       <aside className="rounded-lg border border-amber-700/40 bg-amber-900/20 px-4 py-2 text-xs text-amber-200">
         <strong className="font-medium">Demo build:</strong> this dashboard uses one shared OpenRouter key in the proxy backend (held in env). Per-user encrypted key custody (KMS-wrapped) is the production path — same code surface, swap-in-place at <span className="font-mono">apps/web/src/lib/kms.ts</span>.

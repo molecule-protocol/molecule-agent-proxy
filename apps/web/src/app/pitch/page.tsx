@@ -50,9 +50,11 @@ function Nav() {
       </div>
       <a
         href={DEMO_URL}
+        target="_blank"
+        rel="noreferrer"
         className="rounded-md border border-[var(--color-usdc)]/40 bg-[var(--color-usdc)]/10 px-3 py-1.5 text-xs font-medium text-[var(--color-usdc)] hover:bg-[var(--color-usdc)]/20"
       >
-        Live demo →
+        Live demo ↗
       </a>
     </nav>
   );
@@ -124,9 +126,11 @@ function Slide2Product() {
       <div className="mt-10 flex gap-3">
         <a
           href={DEMO_URL}
+          target="_blank"
+          rel="noreferrer"
           className="rounded-lg border border-[var(--color-usdc)]/40 bg-[var(--color-usdc)]/15 px-5 py-2.5 text-sm font-medium text-[var(--color-usdc)] hover:bg-[var(--color-usdc)]/25"
         >
-          See the live demo →
+          See the live demo ↗
         </a>
         <a
           href="https://github.com/molecule-protocol/molecule-agent-proxy"
@@ -134,7 +138,7 @@ function Slide2Product() {
           rel="noreferrer"
           className="rounded-lg border border-neutral-700 px-5 py-2.5 text-sm font-medium text-neutral-200 hover:bg-neutral-800"
         >
-          GitHub
+          GitHub ↗
         </a>
       </div>
     </section>
@@ -238,9 +242,11 @@ function Slide4UseCases() {
           </p>
           <a
             href={DEMO_URL}
+            target="_blank"
+            rel="noreferrer"
             className="mt-4 inline-block rounded-md border border-[var(--color-usdc)]/40 bg-[var(--color-usdc)]/15 px-4 py-2 text-xs font-medium text-[var(--color-usdc)] hover:bg-[var(--color-usdc)]/25"
           >
-            See live activity →
+            See live activity ↗
           </a>
         </div>
 
@@ -482,8 +488,13 @@ function Footer() {
   return (
     <footer className="border-t border-neutral-900 px-8 py-12 text-center text-xs text-neutral-500 sm:px-16">
       <p>
-        <a className="text-[var(--color-usdc)] underline" href={DEMO_URL}>
-          Open the live dashboard
+        <a
+          className="text-[var(--color-usdc)] underline"
+          href={DEMO_URL}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open the live dashboard ↗
         </a>{" "}
         ·{" "}
         <a
@@ -492,7 +503,7 @@ function Footer() {
           target="_blank"
           rel="noreferrer"
         >
-          GitHub
+          GitHub ↗
         </a>
       </p>
       <p className="mt-4">moleculeprotocol.io · MIT licensed</p>

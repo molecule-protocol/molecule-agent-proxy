@@ -364,9 +364,11 @@ export default function GetStarted() {
         <div className="flex gap-3 pt-1">
           <a
             href="/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225"
+            target="_blank"
+            rel="noreferrer"
             className="rounded-lg border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:bg-neutral-800"
           >
-            Open dashboard →
+            Open dashboard ↗
           </a>
           <a
             href="https://github.com/molecule-protocol/molecule-agent-proxy"
@@ -374,7 +376,7 @@ export default function GetStarted() {
             rel="noreferrer"
             className="rounded-lg border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:bg-neutral-800"
           >
-            View on GitHub
+            GitHub ↗
           </a>
         </div>
       </div>
