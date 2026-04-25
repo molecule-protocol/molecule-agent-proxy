@@ -282,14 +282,11 @@ export default function AgentClient({
                 setBindingType(t);
                 setBindMsg(null);
                 try {
-                  const res = await fetch("/api/attestations/bind", {
+                  // Use the demo-only bind route (tight rate limit, hardcoded to NFT #5).
+                  // The Bearer-gated /api/attestations/bind exists for admin use.
+                  const res = await fetch("/api/attestations/bind-demo", {
                     method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      // Bearer required by the bind route (see Audit Security #8 / additional A1).
-                      // Placeholder — judges hitting this button without a configured Bearer
-                      // will see "MISSING_BEARER", which is the correct fail-closed behavior.
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ nftId: state.nftId, issuerType: t, subject: state.owner }),
                   });
                   const data = await res.json();
