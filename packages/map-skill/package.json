@@ -4,10 +4,16 @@
   "private": true,
   "description": "Universal agent runtime SDK for Molecule Agent Proxy. Identity-gated, key-free API access in any agent framework.",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
   "files": [
+    "src",
     "dist",
     "SKILL.md",
     "README.md"
