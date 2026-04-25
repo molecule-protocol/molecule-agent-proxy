@@ -1,3 +1,5 @@
+import GetStarted from "./get-started";
+
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center gap-8 px-6 py-12">
@@ -23,6 +25,8 @@ export default function Home() {
           <li>Each call: identity-verified on Arc, charged $0.0005 USDC, audited on-chain</li>
         </ol>
       </section>
+
+      <GetStarted />
 
       <section className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-6">
         <p className="text-sm text-neutral-400">
