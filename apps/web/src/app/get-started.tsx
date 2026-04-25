@@ -24,6 +24,89 @@ function getProvider(): EthereumProvider | null {
   return eth;
 }
 
+/** Demo session key — pre-bound to NFT #5 on Arc, $5/day cap. Anyone running
+ *  with this key drains the demo wallet by $0.0005/call ($5 max). Acceptable
+ *  for the hackathon demo; production would issue per-user session keys. */
+const DEMO_SESSION_KEY = "0x070a864B45D3244eF8e68F91cAeBa3a0663D1225";
+
+function SessionKeyAndCli() {
+  const [reveal, setReveal] = useState<"key" | "cmd" | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const masked = `${DEMO_SESSION_KEY.slice(0, 6)}…${DEMO_SESSION_KEY.slice(-4)}`;
+  const cliCmd = `MAP_SESSION_KEY=${DEMO_SESSION_KEY} N=10 GAP_MS=300 PROXY_BASE_URL=https://molecule-agent-proxy-web.vercel.app pnpm tsx scripts/attacker.ts`;
+  const cliMasked = cliCmd.replace(DEMO_SESSION_KEY, masked);
+
+  const copy = async (text: string, what: "key" | "cmd") => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(what);
+      setTimeout(() => setCopied(null), 1500);
+    } catch {
+      setCopied(null);
+    }
+  };
+
+  return (
+    <div className="space-y-3 rounded-lg border border-neutral-800 bg-neutral-950/60 p-3">
+      {/* Demo session key (masked + copy) */}
+      <div className="flex items-center gap-2">
+        <span className="shrink-0 text-[10px] uppercase tracking-wider text-neutral-500">demo session key</span>
+        <code className="flex-1 truncate font-mono text-xs text-neutral-300">
+          {reveal === "key" ? DEMO_SESSION_KEY : masked}
+        </code>
+        <button
+          onClick={() => setReveal(reveal === "key" ? null : "key")}
+          className="rounded border border-neutral-700 px-2 py-0.5 text-[10px] uppercase tracking-wider text-neutral-400 hover:bg-neutral-800"
+          tabIndex={-1}
+        >
+          {reveal === "key" ? "hide" : "show"}
+        </button>
+        <button
+          onClick={() => copy(DEMO_SESSION_KEY, "key")}
+          className="rounded border border-[var(--color-usdc)]/40 bg-[var(--color-usdc)]/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[var(--color-usdc)] hover:bg-[var(--color-usdc)]/20"
+        >
+          {copied === "key" ? "copied" : "copy"}
+        </button>
+      </div>
+
+      {/* Runnable CLI command (masked display, full copy) */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] uppercase tracking-wider text-neutral-500">
+            paste this in your terminal
+          </span>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setReveal(reveal === "cmd" ? null : "cmd")}
+              className="rounded border border-neutral-700 px-2 py-0.5 text-[10px] uppercase tracking-wider text-neutral-400 hover:bg-neutral-800"
+              tabIndex={-1}
+            >
+              {reveal === "cmd" ? "hide" : "show"}
+            </button>
+            <button
+              onClick={() => copy(cliCmd, "cmd")}
+              className="rounded border border-[var(--color-usdc)]/40 bg-[var(--color-usdc)]/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[var(--color-usdc)] hover:bg-[var(--color-usdc)]/20"
+            >
+              {copied === "cmd" ? "copied" : "copy command"}
+            </button>
+          </div>
+        </div>
+        <pre className="overflow-x-auto rounded border border-neutral-800 bg-black px-3 py-2 font-mono text-[10px] leading-relaxed text-neutral-400">
+{reveal === "cmd" ? cliCmd : cliMasked}
+        </pre>
+      </div>
+
+      <p className="text-[10px] leading-relaxed text-neutral-500">
+        Clones the repo, signs requests with the demo session key, fires 10
+        calls. Each call appears in the dashboard live feed within ~5s. After
+        you run it, click <em>Revoke</em> on the dashboard and re-run — calls
+        will return <code className="text-neutral-400">REVOKED</code>.
+      </p>
+    </div>
+  );
+}
+
 export default function GetStarted() {
   const [address, setAddress] = useState<`0x${string}` | null>(null);
   const [chainId, setChainId] = useState<number | null>(null);
@@ -269,15 +352,16 @@ export default function GetStarted() {
         )}
       </div>
 
-      {/* Step 3 — link to live demo agent */}
-      <div className="space-y-2 border-t border-neutral-800 pt-4">
+      {/* Step 3 — try it from your terminal */}
+      <div className="space-y-3 border-t border-neutral-800 pt-4">
         <p className="text-sm text-neutral-300">
           <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-neutral-700 text-xs">
             3
           </span>
-          See the live demo agent
+          Try it from your terminal
         </p>
-        <div className="flex gap-3">
+        <SessionKeyAndCli />
+        <div className="flex gap-3 pt-1">
           <a
             href="/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225"
             className="rounded-lg border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:bg-neutral-800"
