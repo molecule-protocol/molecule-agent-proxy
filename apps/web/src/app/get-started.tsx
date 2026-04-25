@@ -187,7 +187,7 @@ export default function GetStarted() {
         ) : (
           <div className="space-y-2">
             <p className="font-mono text-xs text-neutral-300">
-              ✓ {address.slice(0, 10)}…{address.slice(-8)}
+              ✓ {address.slice(0, 6)}…{address.slice(-4)}
             </p>
             {!isCorrectChain && (
               <div className="space-y-1">
@@ -221,7 +221,7 @@ export default function GetStarted() {
         {savedFor ? (
           <div className="space-y-1">
             <p className="text-xs text-emerald-400">
-              ✓ key saved for {savedFor.slice(0, 10)}…{savedFor.slice(-8)}
+              ✓ key saved for {savedFor.slice(0, 6)}…{savedFor.slice(-4)}
             </p>
             <button
               onClick={clearKey}
