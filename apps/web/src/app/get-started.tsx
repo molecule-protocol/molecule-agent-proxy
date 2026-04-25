@@ -13,6 +13,7 @@ export default function GetStarted() {
   const [savedFor, setSavedFor] = useState<string | null>(null);
   const [busy, setBusy] = useState<"connect" | "switch" | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [showKey, setShowKey] = useState(false);
 
   // Reload existing key on mount (just for the address that's stored)
   useEffect(() => {
@@ -203,14 +204,32 @@ export default function GetStarted() {
           </div>
         ) : (
           <div className="flex gap-2">
-            <input
-              type="password"
-              placeholder="sk-or-v1-…"
-              value={openRouterKey}
-              onChange={(e) => setOpenRouterKey(e.target.value)}
-              disabled={!address}
-              className="flex-1 rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 font-mono text-xs text-neutral-200 placeholder:text-neutral-600 focus:border-neutral-600 focus:outline-none disabled:opacity-50"
-            />
+            <div className="relative flex-1">
+              <input
+                type={showKey ? "text" : "password"}
+                placeholder="sk-or-v1-…"
+                value={openRouterKey}
+                onChange={(e) => setOpenRouterKey(e.target.value)}
+                disabled={!address}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                data-1p-ignore
+                data-lpignore="true"
+                data-form-type="other"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 pr-14 font-mono text-xs text-neutral-200 placeholder:text-neutral-600 focus:border-neutral-600 focus:outline-none disabled:opacity-50"
+              />
+              <button
+                type="button"
+                onClick={() => setShowKey((s) => !s)}
+                disabled={!address || !openRouterKey}
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-neutral-500 hover:text-neutral-300 disabled:opacity-30"
+                tabIndex={-1}
+              >
+                {showKey ? "hide" : "show"}
+              </button>
+            </div>
             <button
               onClick={saveKey}
               disabled={!address || !openRouterKey}
