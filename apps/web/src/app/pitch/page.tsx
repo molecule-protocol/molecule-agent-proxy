@@ -15,10 +15,10 @@ export default function PitchPage() {
     <main className="min-h-screen scroll-smooth bg-neutral-950 text-neutral-100">
       <Nav />
       <Slide1Hook />
+      <Slide5WhyArc />
       <Slide2Product />
       <Slide3Architecture />
       <Slide4UseCases />
-      <Slide5WhyArc />
       <Slide6RoadmapCreator />
       <Footer />
     </main>
@@ -30,10 +30,10 @@ export default function PitchPage() {
 function Nav() {
   const items = [
     { href: "#hook", label: "Problem" },
+    { href: "#why-arc", label: "Why Arc" },
     { href: "#product", label: "MAP" },
     { href: "#architecture", label: "How it works" },
     { href: "#use-cases", label: "Use cases" },
-    { href: "#why-arc", label: "Why Arc" },
     { href: "#roadmap", label: "Roadmap" },
   ];
   return (
@@ -182,10 +182,15 @@ function Slide3Architecture() {
       </div>
 
       <div className="mt-8 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2">
-        <Card title="Session-key delegation (EIP-7702-compatible)">
-          User signs ONE structured message with their primary wallet (MetaMask).
-          The agent uses a separate session keypair for every subsequent call.
-          Primary key never sees per-call traffic — and never leaves MetaMask.
+        <Card title="Session-key delegation, EIP-7702-compatible">
+          User signs ONE{" "}
+          <Term term="EIP-712" what="EIP-712 is the Ethereum standard for human-readable structured-data signatures. MetaMask shows the user the actual fields being signed (sessionKey, scope, cap, expiry) instead of a meaningless hash, so the user knows what they're authorizing." />{" "}
+          structured message with their primary wallet (MetaMask). The agent
+          uses a separate session keypair for every subsequent call. Compatible
+          with{" "}
+          <Term term="EIP-7702" what="EIP-7702 (Pectra upgrade, May 2025) lets a regular wallet (EOA) temporarily delegate authority to a contract — the foundation for on-chain session keys with scope and revocation. We use the same data model so future on-chain enforcement is a one-line swap." />{" "}
+          for future on-chain enforcement. Primary key never sees per-call
+          traffic — and never leaves MetaMask.
         </Card>
         <Card title="On-chain receipts you can audit">
           Every call emits a <code className="text-[var(--color-usdc)]">Charged</code>{" "}
@@ -306,9 +311,17 @@ function Slide5WhyArc() {
       {/* Arc's own thesis */}
       <blockquote className="mt-10 max-w-4xl border-l-4 border-[var(--color-usdc)] bg-neutral-900/50 px-6 py-5 text-base leading-relaxed text-neutral-300">
         <p>
-          Arc&apos;s framework leverages <strong className="text-neutral-100">decentralized identity (DID) standards with verifiable credentials</strong> to establish agent identities and delegations,{" "}
-          <strong className="text-neutral-100">on-chain intent proofs</strong> to verify user authorization for transactions, and{" "}
-          <strong className="text-neutral-100">zero-knowledge proofs</strong> to preserve privacy while proving policy compliance. W3C Verifiable Credentials (&quot;mandates&quot;) provide non-repudiable proof of user consent for agent-driven transactions.
+          Arc&apos;s framework leverages{" "}
+          <Term term="decentralized identity (DID) standards" what="DIDs let an entity (a person, an agent) own a portable cryptographic identifier that no central authority controls. The agent can prove who it is anywhere, without registering with a platform first." />{" "}
+          with{" "}
+          <Term term="verifiable credentials" what="A credential (KYC, employment, age) issued by a trusted party, signed cryptographically. The holder can present it later to anyone, and the verifier checks the signature without contacting the issuer." />{" "}
+          to establish agent identities and delegations,{" "}
+          <Term term="on-chain intent proofs" what="A signed message from the user authorizing a specific action (e.g. 'agent X may swap up to $500 on Aave today'). Stored on-chain so any party can verify the agent isn't acting outside its mandate." />{" "}
+          to verify user authorization for transactions, and{" "}
+          <Term term="zero-knowledge proofs" what="A proof that a fact is true (e.g. 'this user passed KYC') without revealing the underlying data (their passport, their bank account)." />{" "}
+          to preserve privacy while proving policy compliance.{" "}
+          <Term term="W3C Verifiable Credentials" what="An open standard (W3C VC) for the cryptographic envelope used to issue, hold, and verify credentials. Same shape across issuers — interoperable." />{" "}
+          (&quot;mandates&quot;) provide non-repudiable proof of user consent for agent-driven transactions.
         </p>
         <footer className="mt-3 text-xs text-neutral-500">
           — Arc.network thesis on agentic commerce
