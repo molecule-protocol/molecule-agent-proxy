@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --color-usdc: #2775ca;
+}
+
+html, body { height: 100%; }

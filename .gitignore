@@ -141,3 +141,22 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Foundry
+packages/contracts/cache/
+packages/contracts/out/
+packages/contracts/broadcast/
+packages/contracts/lib/
+packages/contracts/.env
+
+# Local deployments override (we keep deployments/arc-testnet.json committed for the demo,
+# but local-only deploys go here)
+deployments/local.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+scripts/.demo-credentials.json
+.hostinger-backups/

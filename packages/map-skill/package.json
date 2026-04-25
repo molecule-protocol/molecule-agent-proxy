@@ -1,0 +1,26 @@
+{
+  "name": "@molecule/map-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Universal agent runtime SDK for Molecule Agent Proxy. Identity-gated, key-free API access in any agent framework.",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "SKILL.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@molecule/openclaw-skill",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "../../node_modules/.pnpm/esbuild@0.27.7/node_modules/esbuild/bin/esbuild cli.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/map-cli.cjs --legal-comments=none",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@molecule/map-skill": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}

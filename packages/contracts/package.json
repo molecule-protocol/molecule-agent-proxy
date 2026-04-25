@@ -1,0 +1,11 @@
+{
+  "name": "@molecule/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MAP smart contracts (Foundry) — IdentityRegistry, ValidationRegistry, RevocationRegistry, MoleculeVault on Arc.",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "deploy:arc": "forge script script/Deploy.s.sol --rpc-url $ARC_RPC_URL --private-key $DEPLOYER_PRIVATE_KEY --broadcast"
+  }
+}
