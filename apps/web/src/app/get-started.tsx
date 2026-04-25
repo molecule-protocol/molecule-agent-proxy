@@ -363,6 +363,14 @@ export default function GetStarted() {
         <SessionKeyAndCli />
         <div className="flex gap-3 pt-1">
           <a
+            href="/pitch"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-lg border border-[var(--color-usdc)]/40 bg-[var(--color-usdc)]/10 px-4 py-2 text-sm font-medium text-[var(--color-usdc)] hover:bg-[var(--color-usdc)]/20"
+          >
+            Read the pitch ↗
+          </a>
+          <a
             href="/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225"
             target="_blank"
             rel="noreferrer"
