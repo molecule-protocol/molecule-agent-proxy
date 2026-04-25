@@ -73,8 +73,8 @@ function Slide1Hook() {
         <span className="text-neutral-500">Every key is a leak waiting to happen.</span>
       </h1>
       <div className="mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-        <Stat value="$47k" label="Avg. leaked-key bill" />
-        <Stat value="weeks" label="Detection time today" />
+        <Stat value="up to $47k" label="Reported per-incident bills" />
+        <Stat value="weeks" label="Typical detection time today" />
         <Stat value="0" label="Identity layer in any current AI gateway" />
       </div>
     </section>
