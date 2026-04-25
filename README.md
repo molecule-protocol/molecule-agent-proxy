@@ -72,6 +72,71 @@ deployments/              Per-network contract addresses (arc-testnet.json)
 
 Native gas is USDC. The ERC-20 interface uses 6 decimals; the native gas token uses 18.
 
+## Integrating MAP into OpenClaw
+
+Two integration paths. Pick one or both.
+
+### Path A — MAP as your OpenClaw agent's primary model (recommended)
+
+OpenClaw's `models.providers` config supports any OpenAI-compatible endpoint. Add MAP as a provider, then set the agent's default model to MAP. Every reasoning step the agent makes routes through MAP — identity-verified on Arc, charged in nano-USDC, audited on-chain.
+
+In the OpenClaw config (`~/.openclaw/openclaw.json` or `/data/.openclaw/openclaw.json` inside the container):
+
+```jsonc
+{
+  "models": {
+    "providers": {
+      "molecule": {
+        "baseUrl": "https://molecule-agent-proxy-web.vercel.app/api/openai-compat/v1",
+        "apiKey": "<your OPENAI_COMPAT_BEARER>",
+        "api": "openai-completions",
+        "auth": "api-key",
+        "models": [
+          { "id": "openai/gpt-4o-mini", "name": "MAP gpt-4o-mini", /* … */ }
+        ]
+      }
+    }
+  }
+}
+```
+
+Then `openclaw models set "MAP gpt-4o-mini"` to make it the default.
+
+### Path B — MAP as a skill (alongside OpenClaw's existing model)
+
+Drop the bundled CLI into the OpenClaw skills directory. The agent calls it via the `bash` tool when it needs an LLM call routed through MAP, while continuing to use its own primary model for the rest of its reasoning.
+
+```bash
+# Build the bundled CLI (single .cjs file, ~172KB, no node_modules)
+cd packages/openclaw-skill
+pnpm build
+
+# Copy into the OpenClaw container's data dir
+mkdir -p /data/.openclaw/skills/molecule-agent-proxy/
+cp dist/map-cli.cjs SKILL.md /data/.openclaw/skills/molecule-agent-proxy/
+
+# Add the credentials to the container env (.env file)
+cat >> /data/.openclaw/.env <<EOF
+MAP_PROXY_URL=https://molecule-agent-proxy-web.vercel.app
+MAP_NFT_ID=<your-nft-id>
+MAP_SESSION_KEY=0x<your-session-private-key>
+MAP_DELEGATION='{"message":{...},"signature":"0x..."}'
+EOF
+```
+
+The agent invokes the skill via:
+```bash
+node /data/.openclaw/skills/molecule-agent-proxy/map-cli.cjs \
+  --model openai/gpt-4o-mini \
+  --prompt "your prompt"
+```
+
+See [`packages/openclaw-skill/SKILL.md`](packages/openclaw-skill/SKILL.md) for the full agent-facing instructions.
+
+### Where to get the credentials
+
+Run `pnpm tsx scripts/setup-demo-credentials.ts` once after deploying the contracts. It mints an ERC-8004 NFT, generates a session keypair, binds it on-chain, signs an EIP-712 delegation, and writes everything to `scripts/.demo-credentials.json` for you to copy into the env vars above.
+
 ## Architecture
 
 - **Smart contracts**: ERC-8004-compatible Identity + Validation registries (NFT per agent, attestation hash per binding) + custom MoleculeVault (per-call USDC charge) + RevocationRegistry (session-key bind + revoke).
