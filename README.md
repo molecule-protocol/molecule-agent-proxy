@@ -2,7 +2,7 @@
 
 **Identity-gated, key-free API access for AI agents. Per-call nano-payments in USDC on Arc.**
 
-Built for the [Agentic Economy on Arc](https://lablab.ai/ai-hackathons/nano-payments-arc) hackathon.
+Built for the [Agentic Economy on Arc](https://lablab.ai/ai-hackathons/nano-payments-arc) hackathon · [submission page →](https://lablab.ai/ai-hackathons/nano-payments-arc/team-mo/molecule-agent-proxy)
 
 > Track: **Per-API Monetization Engine**
 > Stack: ERC-8004 + Reclaim Protocol (zkTLS) + Circle Arc (USDC L1)
@@ -22,8 +22,11 @@ Agents call OpenAI, Anthropic, anything — without ever holding a key.
 
 | | |
 |---|---|
-| Dashboard | https://molecule-agent-proxy-web.vercel.app/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225 |
-| Arc explorer | https://testnet.arcscan.app/address/0xE0f82720D7e3Dd443F4224e2d99Cb38a20E43d74 |
+| **Landing page** | https://molecule-agent-proxy-web.vercel.app |
+| **Pitch deck** | https://molecule-agent-proxy-web.vercel.app/pitch |
+| **Live dashboard (NFT #5)** | https://molecule-agent-proxy-web.vercel.app/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225 |
+| **Lablab submission** | https://lablab.ai/ai-hackathons/nano-payments-arc/team-mo/molecule-agent-proxy |
+| Arc explorer (vault) | https://testnet.arcscan.app/address/0xE0f82720D7e3Dd443F4224e2d99Cb38a20E43d74 |
 | MoleculeVault | `0xE0f82720D7e3Dd443F4224e2d99Cb38a20E43d74` |
 | IdentityRegistry | `0xEb26bd192b2BC95E6308642D337B93A75f45604C` |
 | ValidationRegistry | `0xD5623A7AA6ED03928f7Def27A06e8F6E2989F274` |
