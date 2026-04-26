@@ -22,7 +22,7 @@ Agents call OpenAI, Anthropic, anything — without ever holding a key.
 
 | | |
 |---|---|
-| Dashboard | https://helsinki1.tail7cff3c.ts.net/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225 |
+| Dashboard | https://molecule-agent-proxy-web.vercel.app/agent/5?sessionKey=0x070a864B45D3244eF8e68F91cAeBa3a0663D1225 |
 | Arc explorer | https://testnet.arcscan.app/address/0xE0f82720D7e3Dd443F4224e2d99Cb38a20E43d74 |
 | MoleculeVault | `0xE0f82720D7e3Dd443F4224e2d99Cb38a20E43d74` |
 | IdentityRegistry | `0xEb26bd192b2BC95E6308642D337B93A75f45604C` |
